@@ -1,10 +1,44 @@
-from flask import Flask, render_template
+from flask import Flask, json, render_template, jsonify
 
 app = Flask(__name__)
 
-@app.route('/')
+JOBS = [
+  {
+    'id': 1,
+    'title': 'Data Analyst',
+    'location': 'Isalmabad , Pakistan',
+    'salary': 'RS. 10,00,000'
+  },
+  {
+    'id': 2,
+    'title': 'Data Scientist',
+    'location': 'Karachi , Pakistan',
+    'salary': 'RS. 15,00,000'
+  },
+  {
+    'id': 3,
+    'title': 'Software Engineer',
+    'location': 'Peshawar , Pakistan',
+    'salary': 'RS. 20,00,000'
+  },
+  {
+    'id': 4,
+    'title': 'Fronted Engineer',
+    'location': 'San Francisco , USA',
+    'salary': '$120,00'
+  },
+]
+
+@app.route("/")
 def hell_world():
-  return render_template('home.html')
+  return render_template('home.html',
+                         jobs= JOBS,
+                        company_name = 'UsMaN')
+    
+@app.route("/api/jobs")
+def list_jobs():
+  return jsonify(JOBS)
 
 if __name__ == "__main__":
   app.run(host='0.0.0.0', debug=True)
+
